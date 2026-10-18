@@ -1,0 +1,260 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LockrFlow | Smart Parcel Lockers</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      min-height: 100vh;
+      background: #f4f7fb;
+      color: #17243a;
+    }
+
+    header {
+      background: #101c32;
+      color: white;
+      padding: 22px 7%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .brand {
+      font-size: 27px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .brand span {
+      color: #26c6a3;
+    }
+
+    header p {
+      color: #c2ccdc;
+      font-size: 14px;
+    }
+
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 75px 24px 45px;
+    }
+
+    .intro {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #d9f8ef;
+      color: #087d68;
+      padding: 8px 14px;
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: clamp(32px, 5vw, 48px);
+      line-height: 1.15;
+      margin-bottom: 17px;
+    }
+
+    .intro p {
+      color: #66758b;
+      font-size: 16px;
+      line-height: 1.7;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    .portals {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .portal {
+      background: white;
+      border: 1px solid #e3e9f1;
+      border-radius: 18px;
+      padding: 30px 25px;
+      box-shadow: 0 8px 25px rgba(24, 42, 70, 0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .portal:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(24, 42, 70, 0.10);
+    }
+
+    .portal-icon {
+      width: 58px;
+      height: 58px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      font-size: 28px;
+      margin-bottom: 24px;
+    }
+
+    .admin .portal-icon {
+      background: #e5edff;
+    }
+
+    .user .portal-icon {
+      background: #d9f8ef;
+    }
+
+    .agent .portal-icon {
+      background: #fff0d9;
+    }
+
+    .portal h2 {
+      font-size: 21px;
+      margin-bottom: 12px;
+    }
+
+    .portal p {
+      color: #6b788d;
+      font-size: 14px;
+      line-height: 1.75;
+      margin-bottom: 25px;
+      flex-grow: 1;
+    }
+
+    .portal a {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 13px 16px;
+      border-radius: 10px;
+      text-decoration: none;
+      color: white;
+      background: #172943;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .user a {
+      background: #079779;
+    }
+
+    .agent a {
+      background: #b87518;
+    }
+
+    .portal a:hover {
+      filter: brightness(1.1);
+    }
+
+    .note {
+      text-align: center;
+      margin-top: 38px;
+      color: #7b8798;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    footer {
+      text-align: center;
+      padding: 22px;
+      color: #7b8798;
+      font-size: 12px;
+    }
+
+    @media (max-width: 800px) {
+      main {
+        padding-top: 48px;
+      }
+
+      .portals {
+        grid-template-columns: 1fr;
+        max-width: 480px;
+        margin: auto;
+      }
+
+      .intro {
+        margin-bottom: 32px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="brand">Lockr<span>Flow</span></div>
+    <p>Smart Parcel Locker Management System</p>
+  </header>
+
+  <main>
+    <section class="intro">
+      <div class="tag">SMART • SECURE • SIMPLE</div>
+      <h1>Welcome to LockrFlow</h1>
+      <p>
+        A smarter way to manage parcel deliveries and collections.
+        Choose your portal to continue.
+      </p>
+    </section>
+
+    <section class="portals">
+      <article class="portal admin">
+        <div class="portal-icon">▦</div>
+        <h2>Admin Portal</h2>
+        <p>
+          Monitor locker availability, track parcel activity,
+          and view the status of your smart locker system.
+        </p>
+        <a href="/admin.html">Open Admin Dashboard →</a>
+      </article>
+
+      <article class="portal user">
+        <div class="portal-icon">♙</div>
+        <h2>User Portal</h2>
+        <p>
+          Look up your parcel, request a one-time password,
+          and verify your OTP before collection.
+        </p>
+        <a href="/user.html">Open User Portal →</a>
+      </article>
+
+      <article class="portal agent">
+        <div class="portal-icon">♧</div>
+        <h2>Delivery Agent</h2>
+        <p>
+          Access the delivery-agent interface for parcel
+          drop-off and delivery workflows.
+        </p>
+        <a href="/agent.html">Open Agent Portal →</a>
+      </article>
+    </section>
+
+    <p class="note">
+      Development version · Hardware integration is not yet connected.<br>
+      Portal links provide navigation only; secure role-based access
+      must be implemented separately.
+    </p>
+  </main>
+
+  <footer>© 2026 LockrFlow · Smart Parcel Locker System</footer>
+</body>
+</html>
+```
