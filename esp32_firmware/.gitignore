@@ -1,0 +1,40 @@
+```gitignore
+# Local device credentials
+device_config.h
+secrets.h
+credentials.h
+wifi_credentials.h
+LockrFlow_ESP32.ino/final_1/locker_config.h
+
+# Environment variables and secrets
+.env
+.env.*
+*.token
+*.secret
+
+# Private keys and certificates
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+*.cer
+*.der
+
+# Arduino IDE and build artifacts
+build/
+.cache/
+*.elf
+*.bin
+*.hex
+*.map
+*.o
+*.a
+
+# PlatformIO artifacts
+.pio/
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
