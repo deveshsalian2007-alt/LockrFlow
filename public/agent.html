@@ -507,11 +507,24 @@
         const password = document.getElementById("password").value;
         await signInWithEmailAndPassword(auth, email, password);
         loginResult.textContent = "Sign-in successful.";
-      } catch (error) {
-        loginResult.textContent = error.code === "auth/invalid-credential"
-          ? "Email or password is incorrect."
-          : "Sign-in failed: " + error.message;
-      } finally {
+      }  catch (error) {
+  console.error("Agent sign-in failed:", error.code, error.message);
+
+  if (
+    error.code === "auth/invalid-credential" ||
+    error.code === "auth/wrong-password" ||
+    error.code === "auth/user-not-found"
+  ) {
+    loginResult.textContent = "Email or password is incorrect.";
+  } else if (error.code === "auth/too-many-requests") {
+    loginResult.textContent =
+      "Too many attempts. Please wait a while and try again.";
+  } else {
+    loginResult.textContent =
+      "Sign-in failed. Check your connection and try again.";
+  }
+}
+       finally {
         loginButton.disabled = false;
       }
     });
