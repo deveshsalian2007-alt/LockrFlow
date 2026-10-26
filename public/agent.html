@@ -1,166 +1,626 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LockrFlow | Delivery Agent</title>
-  <style>
-    :root {
-      --navy: #14213d;
-      --teal: #14b8a6;
-      --bg: #f4f7fb;
-      --muted: #718096;
-      --border: #e5eaf1;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: "Segoe UI", Arial, sans-serif;
-      background: var(--bg);
-      color: #182230;
-    }
+  
+<style>
+  :root {
+    --navy: #102344;
+    --navy-light: #19365b;
+    --teal: #14b8a6;
+    --teal-dark: #07877e;
+    --bg: #f3f7fc;
+    --muted: #64748b;
+    --border: #dfe9f2;
+    --success: #087f70;
+    --warning: #805600;
+    --error: #b42318;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background:
+      radial-gradient(ellipse at top left, #dff8f2 0, transparent 38%),
+      var(--bg);
+    color: #172b49;
+    line-height: 1.6;
+  }
+
+  header {
+    background: linear-gradient(115deg, var(--navy), var(--navy-light));
+    color: white;
+    padding: 19px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    border-bottom: 4px solid var(--teal);
+    box-shadow: 0 6px 22px #10234418;
+  }
+
+  .brand {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+
+  .brand span {
+    color: #5eead4;
+  }
+
+  header a {
+    color: white;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 650;
+    padding: 9px 13px;
+    border-radius: 9px;
+    transition: background 0.2s ease;
+  }
+
+  header a:hover {
+    background: #ffffff18;
+  }
+
+  main {
+    max-width: 1000px;
+    margin: 38px auto;
+    padding: 0 22px;
+  }
+
+  h1 {
+    margin: 0 0 9px;
+    color: var(--navy);
+    font-size: clamp(28px, 4vw, 36px);
+    line-height: 1.25;
+    letter-spacing: -0.8px;
+  }
+
+  h2 {
+    color: var(--navy);
+    font-size: 22px;
+    line-height: 1.35;
+    margin: 0 0 10px;
+  }
+
+  .muted {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 22px;
+    margin-top: 26px;
+  }
+
+  .grid.signed-in {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .panel {
+    min-width: 0;
+    background: linear-gradient(145deg, #ffffff, #fcfeff);
+    padding: 27px;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: 0 8px 26px #1023440b;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      border-color 0.2s ease;
+  }
+
+  .panel:hover {
+    border-color: #c5e5df;
+    box-shadow: 0 13px 32px #10234412;
+  }
+
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    margin: 17px 0 7px;
+    color: #263b56;
+  }
+
+  input,
+  select {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    padding: 13px 14px;
+    border: 1px solid #cfd9e6;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 14px;
+    color: #172b49;
+    background: white;
+    outline: none;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  input:focus,
+  select:focus {
+    border-color: var(--teal-dark);
+    box-shadow: 0 0 0 3px #14b8a61c;
+  }
+
+  input::placeholder {
+    color: #94a0b2;
+  }
+
+  button {
+    margin-top: 17px;
+    width: 100%;
+    border: 0;
+    border-radius: 10px;
+    padding: 13px 16px;
+    background: linear-gradient(110deg, var(--teal), var(--teal-dark));
+    color: white;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px #07877e20;
+    transition:
+      transform 0.18s ease,
+      box-shadow 0.18s ease,
+      filter 0.18s ease;
+  }
+
+  button:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 7px 16px #07877e30;
+    filter: brightness(1.04);
+  }
+
+  button:focus-visible,
+  header a:focus-visible {
+    outline: 3px solid #5eead4;
+    outline-offset: 3px;
+  }
+
+  button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  button.secondary {
+    background: #e8eef6;
+    color: var(--navy);
+    box-shadow: none;
+  }
+
+  button.secondary:hover:not(:disabled) {
+    background: #dce7f3;
+  }
+
+  .notice {
+    padding: 14px 16px;
+    background: #fff8e8;
+    color: var(--warning);
+    border: 1px solid #f1dba5;
+    border-left: 4px solid #e5a72e;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.7;
+    margin-top: 17px;
+    overflow-wrap: anywhere;
+    white-space: pre-line;
+  }
+
+  .notice.success {
+    background: #e0f7f3;
+    color: var(--success);
+    border-color: #bcece4;
+    border-left-color: var(--teal);
+  }
+
+  .notice.error {
+    background: #feeceb;
+    color: var(--error);
+    border-color: #f5c8c5;
+    border-left-color: var(--error);
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  .otp-code {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1px dashed #8adfd2;
+    background: #e9fbf7;
+    color: var(--navy);
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: 6px;
+    overflow-wrap: anywhere;
+  }
+
+  
+.agent-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 220px;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.agent-tag {
+  display: inline-block;
+  padding: 7px 12px;
+  margin-bottom: 13px;
+  border: 1px solid #a8eee0;
+  border-radius: 999px;
+  background: #d9faf2;
+  color: #11665d;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+}
+
+.agent-hero-icon {
+  position: relative;
+  min-height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  overflow: hidden;
+  border: 1px solid #d5eee9;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #e0faf4, #edf4ff);
+}
+
+.agent-icon-glow {
+  position: absolute;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: #b8f0e5;
+  opacity: 0.7;
+}
+
+.agent-package,
+.agent-arrow,
+.agent-locker {
+  position: relative;
+  z-index: 1;
+}
+
+.agent-package {
+  font-size: 39px;
+}
+
+.agent-arrow {
+  color: #07877e;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.agent-locker {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 65px;
+  border-radius: 8px;
+  background: #19365b;
+  color: #5eead4;
+  font-size: 25px;
+}
+
+
+  @media (max-width: 700px) {
     header {
-      background: var(--navy);
-      color: white;
-      padding: 20px 6%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
+      padding: 17px 20px;
     }
-    .brand { font-size: 23px; font-weight: 750; }
-    .brand span { color: var(--teal); }
-    header a { color: white; text-decoration: none; font-size: 13px; }
-    main { max-width: 1000px; margin: 36px auto; padding: 0 20px; }
-    .muted { color: var(--muted); font-size: 14px; line-height: 1.6; }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 20px;
-      margin-top: 26px;
+
+    .brand {
+      font-size: 22px;
     }
+
+    main {
+      margin: 28px auto;
+      padding: 0 16px;
+    }
+
     .panel {
-      background: white;
-      padding: 24px;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      box-shadow: 0 3px 12px #14213d08;
+      padding: 22px 19px;
     }
-    label { display: block; font-size: 13px; font-weight: 650; margin: 16px 0 7px; }
-    input, select {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #cfd8e5;
-      border-radius: 8px;
-      font-size: 14px;
-      background: white;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      scroll-behavior: auto !important;
+      transition: none !important;
+      animation: none !important;
     }
-    button {
-      margin-top: 16px;
-      width: 100%;
-      border: 0;
-      border-radius: 8px;
-      padding: 12px;
-      background: var(--teal);
-      color: #073b36;
-      font-weight: 700;
-      cursor: pointer;
-    }
-    .notice {
-      padding: 12px;
-      background: #fff1d6;
-      color: #805600;
-      border-radius: 8px;
-      font-size: 13px;
-      margin-top: 16px;
-    }
-    @media (max-width: 700px) {
-      .grid { grid-template-columns: 1fr; }
-      header { padding: 18px 20px; }
-    }
-  </style>
+  }
+  .agent-hero {
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.agent-hero-icon {
+  min-height: 125px;
+}
+</style>
+
 </head>
 <body>
   <header>
     <div class="brand">Lockr<span>Flow</span> · Agent</div>
-    <a href="/">Admin Dashboard</a>
+    <a href="/admin.html">Admin Dashboard</a>
   </header>
 
   <main>
+   
+<section class="agent-hero">
+  <div>
+    <span class="agent-tag">DELIVERY OPERATIONS</span>
     <h1>Delivery Agent Portal</h1>
     <p class="muted">
-      Agent workspace for assigned deliveries and parcel deposits.
+      Register a parcel, reserve an available locker, and generate
+      a deposit OTP for the authorized deposit workflow.
     </p>
+  </div>
 
-    <div class="notice">
-      Demo interface only: login, agent authorization, assigned deliveries,
-      and hardware deposit commands are not implemented yet. Do not enter
-      real passwords or personal information.
+  <div class="agent-hero-icon" aria-hidden="true">
+    <div class="agent-icon-glow"></div>
+    <div class="agent-package">📦</div>
+    <div class="agent-arrow">→</div>
+    <div class="agent-locker">▦</div>
+  </div>
+</section>
+
+      Development mode: the deposit OTP is displayed in this web app.
+      SMS and physical locker control are not connected yet.
     </div>
 
-    <div class="grid">
-      <section class="panel">
+    <div class="grid" id="agentGrid">
+      <section class="panel" id="loginPanel">
         <h2>Agent Login</h2>
-        <p class="muted">
-          This form is a visual placeholder. It does not authenticate
-          credentials or create a secure session.
-        </p>
-
+        <p class="muted">Sign in using your registered delivery-agent email and password.</p>
         <form id="loginForm">
           <label for="email">Agent email</label>
-          <input id="email" type="email" required
-                 placeholder="agent@example.com" autocomplete="off">
-
+          <input id="email" type="email" required placeholder="agent@example.com" autocomplete="username">
           <label for="password">Password</label>
-          <input id="password" type="password" required
-                 placeholder="Demo only; don't enter a real password"
-                 autocomplete="off">
-
-          <button type="submit">Demo Login</button>
+          <input id="password" type="password" required placeholder="Enter your password" autocomplete="current-password">
+          <button id="loginButton" type="submit">Sign In</button>
         </form>
         <p id="loginResult" class="muted" aria-live="polite"></p>
+        
       </section>
+      <button type="button" id="signOutButton" class="secondary hidden">Sign Out</button>
 
-      <section class="panel">
-        <h2>Register Parcel Deposit</h2>
-        <p class="muted">
-          Once agent authentication is implemented, this form will register
-          an authorized parcel deposit through the backend.
-        </p>
-
+      <section class="panel hidden" id="depositPanel">
+        <h2>Prepare Parcel Deposit</h2>
+        <p class="muted">Enter the tracking ID exactly as shown in the online shopping app, then choose an empty locker.</p>
         <form id="depositForm">
-          <label for="recipientName">Recipient name</label>
-          <input id="recipientName" required placeholder="Demo recipient">
-
-          <label for="lockerId">Locker ID</label>
-          <select id="lockerId">
-            <option value="LOCKER-01">LOCKER-01</option>
+          <label for="trackingId">Existing tracking ID</label>
+          <input id="trackingId" required maxlength="120" autocomplete="off" placeholder="Enter shopping-app tracking ID">
+          <label for="lockerId">Available locker</label>
+          <select id="lockerId" required>
+            <option value="">Sign in to load lockers...</option>
           </select>
-
-          <button type="submit">Preview Deposit</button>
+          <button type="submit" id="depositButton" disabled>Register Tracking ID & Generate Deposit OTP</button>
         </form>
-        <p id="depositResult" class="muted" aria-live="polite"></p>
+        <div id="depositResult" class="notice hidden" aria-live="polite"></div>
+        <div id="depositOtpPanel" class="notice success hidden" aria-live="polite">
+          <strong>DEVELOPMENT DEPOSIT OTP</strong>
+          <p id="depositOtpText"></p>
+          <p>This code is for prototype testing only. The physical locker does not open from this website yet.</p>
+        </div>
       </section>
     </div>
   </main>
 
-  <script>
-    document.getElementById("loginForm").addEventListener("submit", (event) => {
+  <script type="module">
+    import {
+      auth,
+      signInWithEmailAndPassword,
+      signOut,
+      onAuthStateChanged
+    } from "./firebase-config.js";
+
+    const loginForm = document.getElementById("loginForm");
+    const loginButton = document.getElementById("loginButton");
+    const loginResult = document.getElementById("loginResult");
+    const signOutButton = document.getElementById("signOutButton");
+    const loginPanel = document.getElementById("loginPanel");
+    const depositPanel = document.getElementById("depositPanel");
+    const agentGrid = document.getElementById("agentGrid");
+    const depositForm = document.getElementById("depositForm");
+    const trackingIdInput = document.getElementById("trackingId");
+    const depositButton = document.getElementById("depositButton");
+    const depositResult = document.getElementById("depositResult");
+    const depositOtpPanel = document.getElementById("depositOtpPanel");
+    const depositOtpText = document.getElementById("depositOtpText");
+    const lockerSelect = document.getElementById("lockerId");
+
+    let currentUser = null;
+
+    function showResult(element, message, type = "") {
+      element.textContent = message;
+      element.className = "notice";
+      if (type) element.classList.add(type);
+      element.classList.remove("hidden");
+    }
+
+    async function loadLockers() {
+      lockerSelect.innerHTML = '<option value="">Loading lockers...</option>';
+      depositButton.disabled = true;
+      try {
+        const response = await fetch("/api/lockers");
+        const data = await response.json();
+        if (!response.ok || !data.success || !Array.isArray(data.lockers)) {
+          throw new Error(data.message || "Could not load lockers.");
+        }
+
+        const available = data.lockers.filter(
+  locker =>
+    locker.parcelStatus === "empty" &&
+    locker.lockerId &&
+    !locker.reservedForTrackingId
+);
+        lockerSelect.innerHTML = "";
+        if (available.length === 0) {
+          lockerSelect.add(new Option("No available lockers", ""));
+          return;
+        }
+        lockerSelect.add(new Option("Select a locker", ""));
+        available.forEach(locker => lockerSelect.add(new Option(locker.lockerId, locker.lockerId)));
+        depositButton.disabled = !currentUser;
+      } catch (error) {
+        lockerSelect.innerHTML = '<option value="">Unable to load lockers</option>';
+        showResult(depositResult, "Could not load lockers: " + error.message, "error");
+      }
+    }
+
+    loginForm.addEventListener("submit", async event => {
+      console.log("Agent login submit handler fired");
       event.preventDefault();
-      document.getElementById("loginResult").textContent =
-        "Demo only. Secure agent authentication has not been connected.";
+      loginButton.disabled = true;
+      loginResult.textContent = "Signing in...";
+      try {
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+        await signInWithEmailAndPassword(auth, email, password);
+        loginResult.textContent = "Sign-in successful.";
+      } catch (error) {
+        loginResult.textContent = error.code === "auth/invalid-credential"
+          ? "Email or password is incorrect."
+          : "Sign-in failed: " + error.message;
+      } finally {
+        loginButton.disabled = false;
+      }
     });
 
-    document.getElementById("depositForm").addEventListener("submit", (event) => {
-      event.preventDefault();
-      const recipientName = document.getElementById("recipientName").value.trim();
-      const lockerId = document.getElementById("lockerId").value;
+    signOutButton.addEventListener("click", async () => {
+      try {
+        await signOut(auth);
+      } catch (error) {
+        loginResult.textContent = "Sign-out failed: " + error.message;
+      }
+    });
 
-      document.getElementById("depositResult").textContent =
-        "Preview only: a deposit for " + recipientName + " in " + lockerId +
-        " has not been saved. Agent authorization and physical deposit " +
-        "confirmation must be implemented first.";
+    onAuthStateChanged(auth, user => {
+      currentUser = user;
+      signOutButton.classList.toggle("hidden", !user);
+      loginForm.classList.toggle("hidden", !!user);
+      depositPanel.classList.toggle("hidden", !user);
+      agentGrid.classList.toggle("signed-in", !!user);
+
+      if (!user) {
+        loginPanel.classList.remove("hidden");
+        loginResult.textContent = "Sign in as a delivery agent to continue.";
+        depositButton.disabled = true;
+        depositOtpPanel.classList.add("hidden");
+        depositResult.classList.add("hidden");
+        lockerSelect.innerHTML = '<option value="">Sign in to load lockers...</option>';
+     } else {
+  loginPanel.classList.add("hidden");
+  loginResult.textContent = "Signed in: " + user.email;
+  loadLockers();
+}
+    });
+
+    depositForm.addEventListener("submit", async event => {
+      event.preventDefault();
+      if (!currentUser) {
+        showResult(depositResult, "Please sign in first.", "error");
+        return;
+      }
+
+      const trackingId = trackingIdInput.value.trim();
+      const lockerId = lockerSelect.value;
+      if (!trackingId || !lockerId) {
+        showResult(depositResult, "Enter the existing tracking ID and select an available locker.", "error");
+        return;
+      }
+
+      depositButton.disabled = true;
+      depositOtpPanel.classList.add("hidden");
+      showResult(depositResult, "Registering tracking ID and reserving locker...");
+
+      try {
+        const idToken = await currentUser.getIdToken();
+        const response = await fetch("/api/parcels", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + idToken
+          },
+          body: JSON.stringify({ trackingId, lockerId })
+        });
+        const data = await response.json();
+
+        if (!response.ok || !data.success || !data.parcel) {
+          throw new Error(data.message || "Could not register tracking ID.");
+        }
+
+        const savedTrackingId = data.parcel.trackingId || data.parcel.parcelId || trackingId;
+        const otpResponse = await fetch(
+          "/api/parcels/" + encodeURIComponent(savedTrackingId) + "/request-deposit-otp",
+          { method: "POST", headers: { "Authorization": "Bearer " + idToken } }
+        );
+        const otpData = await otpResponse.json();
+
+        if (!otpResponse.ok || !otpData.success) {
+          showResult(
+            depositResult,
+            "Tracking ID was registered, but the deposit OTP could not be generated: " +
+            (otpData.message || "Unknown error"),
+            "error"
+          );
+          return;
+        }
+
+        showResult(
+          depositResult,
+          "Tracking ID: " + savedTrackingId + "\nLocker ID: " + lockerId +
+          "\nStatus: " + (data.parcel.status || "pending_deposit"),
+          "success"
+        );
+
+        if (otpData.developmentOnly && otpData.otp) {
+          depositOtpText.textContent =
+            "Tracking ID: " + savedTrackingId + "\n" +
+            "Locker ID: " + lockerId + "\n" +
+            "Deposit OTP: " + otpData.otp + "\n" +
+            "Expires in " + otpData.expiresInMinutes + " minutes.";
+          depositOtpPanel.classList.remove("hidden");
+        } else {
+          showResult(depositResult, "Tracking ID registered, but the server did not return a development OTP.", "error");
+        }
+
+        depositForm.reset();
+        await loadLockers();
+      } catch (error) {
+        showResult(depositResult, "Deposit request failed: " + error.message, "error");
+      } finally {
+        depositButton.disabled = !currentUser || !lockerSelect.value;
+      }
     });
   </script>
 </body>

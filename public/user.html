@@ -5,236 +5,871 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LockrFlow | User Portal</title>
-  <style>
-    :root {
-      --navy: #14213d;
-      --teal: #14b8a6;
-      --bg: #f4f7fb;
-      --muted: #718096;
-      --border: #e5eaf1;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: "Segoe UI", Arial, sans-serif;
-      background: var(--bg);
-      color: #182230;
-    }
+
+
+<style>
+  :root {
+    --navy: #102344;
+    --navy-light: #19365b;
+    --teal: #14b8a6;
+    --teal-dark: #07877e;
+    --bg: #f3f7fc;
+    --muted: #64748b;
+    --border: #dfe9f2;
+    --success: #087f70;
+    --warning: #805600;
+    --error: #b42318;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #172b49;
+    line-height: 1.6;
+    background:
+      radial-gradient(ellipse at 8% 15%, #d9f8f0 0, transparent 34%),
+      radial-gradient(ellipse at 95% 45%, #e2ecff 0, transparent 32%),
+      var(--bg);
+  }
+
+  header {
+    position: relative;
+    background: linear-gradient(115deg, var(--navy), var(--navy-light));
+    color: white;
+    padding: 18px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 18px;
+    border-bottom: 4px solid var(--teal);
+    box-shadow: 0 8px 24px #10234420;
+  }
+
+  .brand {
+    font-size: 25px;
+    font-weight: 800;
+    letter-spacing: -0.7px;
+  }
+
+  .brand span {
+    color: var(--teal);
+  }
+
+  header a {
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 10px 16px;
+    border: 1px solid #66e5d522;
+    border-radius: 10px;
+    background: #ffffff08;
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+
+  header a:hover {
+    background: #ffffff16;
+    border-color: #66e5d5;
+  }
+
+  main {
+    max-width: 1160px;
+    margin: 38px auto;
+    padding: 0 24px;
+  }
+
+  h1 {
+    margin: 0 0 10px;
+    font-size: clamp(28px, 4vw, 39px);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -1px;
+    color: var(--navy);
+  }
+
+  h2 {
+    margin: 0 0 12px;
+    font-size: 24px;
+    font-weight: 750;
+    line-height: 1.35;
+    letter-spacing: -0.5px;
+    color: var(--navy);
+  }
+
+  h3 {
+    color: var(--navy);
+  }
+
+  p {
+    margin-top: 8px;
+  }
+
+  .muted {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.75;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 28px;
+    align-items: stretch;
+  }
+
+  .panel {
+    position: relative;
+    min-width: 0;
+    overflow: hidden;
+    background: linear-gradient(145deg, #ffffff, #fcfeff);
+    padding: 30px 28px;
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    box-shadow: 0 10px 32px #17365b0d;
+    transition:
+      transform 0.22s ease,
+      box-shadow 0.22s ease,
+      border-color 0.22s ease;
+  }
+
+  .panel::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 110px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--teal), #a6f3e7);
+  }
+
+  .panel:hover {
+    transform: translateY(-3px);
+    border-color: #c5e9e3;
+    box-shadow: 0 17px 38px #17365b14;
+  }
+
+  label {
+    display: block;
+    margin: 18px 0 8px;
+    color: #253b59;
+    font-size: 13px;
+    font-weight: 750;
+  }
+
+  input {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    padding: 14px 15px;
+    border: 1px solid #cedbe9;
+    border-radius: 11px;
+    background: #fff;
+    color: #172b49;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease,
+      background 0.2s ease;
+  }
+
+  input::placeholder {
+    color: #94a3b8;
+  }
+
+  input:hover {
+    border-color: #aabed2;
+  }
+
+  input:focus {
+    border-color: var(--teal-dark);
+    box-shadow: 0 0 0 4px #14b8a61c;
+    background: #feffff;
+  }
+
+  button {
+    display: block;
+    width: 100%;
+    margin-top: 17px;
+    padding: 14px 17px;
+    border: 0;
+    border-radius: 11px;
+    background: linear-gradient(110deg, #18b99f, #07877e);
+    color: #fff;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 750;
+    cursor: pointer;
+    box-shadow: 0 5px 13px #07877e20;
+    transition:
+      transform 0.18s ease,
+      box-shadow 0.18s ease,
+      filter 0.18s ease;
+  }
+
+  button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 9px 20px #07877e32;
+    filter: brightness(1.04);
+  }
+
+  button:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  button:focus-visible,
+  header a:focus-visible {
+    outline: 3px solid #5eead4;
+    outline-offset: 3px;
+  }
+
+  button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  .notice {
+    margin-top: 18px;
+    padding: 16px 18px;
+    border: 1px solid #bcece4;
+    border-radius: 13px;
+    background: linear-gradient(110deg, #e8fbf7, #f2fffc);
+    color: var(--success);
+    font-size: 14px;
+    line-height: 1.65;
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+  }
+
+  .notice.warning {
+  background: linear-gradient(110deg, #fff8e8, #fffdf6);
+  color: #79520b;
+  border: 1px solid #f1dba5;
+  border-left: 4px solid #e5a72e;
+  border-radius: 12px;
+  padding: 13px 17px;
+  font-size: 13px;
+  line-height: 1.6;
+  box-shadow: 0 4px 12px #9a6b0b0a;
+}
+
+  .notice.error {
+    border-color: #f5c8c5;
+    background: linear-gradient(110deg, #feeceb, #fff5f4);
+    color: var(--error);
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  input:focus-visible {
+    outline: none;
+  }
+
+  
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 28px;
+  margin-bottom: 26px;
+}
+
+.hero-copy h1 span {
+  color: #0d9b88;
+}
+
+.hero-copy .muted {
+  max-width: 470px;
+  font-size: 16px;
+}
+
+.hero-art {
+  position: relative;
+  min-height: 235px;
+  overflow: hidden;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #e0faf4, #edf4ff);
+}
+
+.hero-glow {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #b8f0e5;
+  border-radius: 50%;
+  opacity: 0.65;
+}
+
+.parcel-illustration {
+  position: absolute;
+  inset: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+}
+
+.parcel-person {
+  font-size: 52px;
+  z-index: 1;
+}
+
+.locker-illustration {
+  position: relative;
+  width: 145px;
+  min-height: 180px;
+  padding: 12px;
+  border-radius: 14px;
+  background: linear-gradient(145deg, #203b60, #102344);
+  box-shadow: 0 12px 24px #10234430;
+}
+
+.locker-brand {
+  color: white;
+  font-size: 13px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.locker-brand span {
+  color: #36d6bd;
+}
+
+.locker-doors {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+
+.locker-doors i {
+  height: 34px;
+  border-radius: 4px;
+  background: linear-gradient(135deg, #f9fdff, #c8d8e8);
+  border: 1px solid #a9c1d5;
+}
+
+.locker-screen {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  padding: 3px 7px;
+  color: #5df2d8;
+  background: #071a31;
+  border-radius: 4px;
+}
+
+.parcel-box {
+  position: absolute;
+  bottom: 4px;
+  left: 12%;
+  font-size: 32px;
+}
+
+
+
+.benefits {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 24px;
+  padding: 20px;
+  border: 1px solid #d0f0e9;
+  border-radius: 18px;
+  background: linear-gradient(110deg, #e0f8f3, #effafc);
+  box-shadow: 0 8px 24px #14213d0b;
+}
+
+.benefit {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.benefit-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: white;
+  font-size: 23px;
+}
+
+.benefit strong {
+  display: block;
+  color: #14213d;
+  font-size: 14px;
+}
+
+.benefit p {
+  margin: 3px 0 0;
+  color: #64748b;
+  font-size: 12px;
+}
+
+@media (max-width: 760px) {
+  .benefits {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+
+
+  @media (max-width: 760px) {
     header {
-      background: var(--navy);
-      color: white;
-      padding: 20px 6%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
+      padding: 17px 20px;
     }
-    .brand { font-size: 23px; font-weight: 750; }
-    .brand span { color: var(--teal); }
-    header a { color: white; text-decoration: none; font-size: 13px; }
-    main { max-width: 1000px; margin: 36px auto; padding: 0 20px; }
-    h1 { margin-bottom: 8px; }
-    .muted { color: var(--muted); font-size: 14px; line-height: 1.6; }
+
+    .brand {
+      font-size: 22px;
+    }
+
+    header a {
+      padding: 9px 11px;
+      font-size: 12px;
+    }
+
+    main {
+      margin: 28px auto;
+      padding: 0 16px;
+    }
+
     .grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 20px;
-      margin-top: 26px;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      margin-top: 22px;
     }
+
     .panel {
-      background: white;
-      padding: 24px;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      box-shadow: 0 3px 12px #14213d08;
+      padding: 24px 20px;
+      border-radius: 18px;
     }
-    label { display: block; font-size: 13px; font-weight: 650; margin: 16px 0 7px; }
-    input {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #cfd8e5;
-      border-radius: 8px;
-      font-size: 14px;
+
+      .hero {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .hero-art {
+    min-height: 210px;
+  }
+
+    h2 {
+      font-size: 22px;
     }
-    button {
-      margin-top: 16px;
-      width: 100%;
-      border: 0;
-      border-radius: 8px;
-      padding: 12px;
-      background: var(--teal);
-      color: #073b36;
-      font-weight: 700;
-      cursor: pointer;
+  }
+
+  @media (max-width: 400px) {
+    header {
+      gap: 8px;
+      padding: 15px 13px;
     }
-    button:disabled { opacity: .55; cursor: not-allowed; }
-    .notice {
-      padding: 12px;
-      background: #e0f7f3;
-      color: #087f70;
-      border-radius: 8px;
-      font-size: 13px;
-      margin-top: 16px;
+
+    .brand {
+      font-size: 19px;
     }
-    .warning { background: #fff1d6; color: #805600; }
-    pre {
-      white-space: pre-wrap;
-      overflow-wrap: anywhere;
-      font-size: 13px;
+
+    header a {
+      padding: 8px;
+      font-size: 11px;
     }
-    @media (max-width: 700px) {
-      .grid { grid-template-columns: 1fr; }
-      header { padding: 18px 20px; }
+
+    main {
+      padding: 0 12px;
     }
-  </style>
+
+    .panel {
+      padding: 21px 16px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+</style>
+
+
 </head>
+
 <body>
   <header>
     <div class="brand">Lockr<span>Flow</span> · User</div>
-    <a href="/">Admin Dashboard</a>
+    <a href="/admin.html">Admin Dashboard</a>
   </header>
 
   <main>
-    <h1>Your Parcel Portal</h1>
+   
+<section class="hero">
+  <div class="hero-copy">
+    <h1>Your Parcel <span>Portal</span></h1>
     <p class="muted">
-      Look up your parcel and follow the pickup process.
-      Use the parcel ID supplied by your delivery agent or notification.
+      Track your parcels, get pickup OTPs and manage your
+      locker deliveries with ease.
     </p>
+  </div>
+
+  <div class="hero-art" aria-hidden="true">
+    <div class="hero-glow"></div>
+    <div class="parcel-illustration">
+      <div class="parcel-person">📦</div>
+      <div class="locker-illustration">
+        <div class="locker-brand">Lockr<span>Flow</span></div>
+        <div class="locker-doors">
+          <i></i><i></i>
+          <i></i><i></i>
+          <i></i><i></i>
+        </div>
+        <div class="locker-screen">▦</div>
+      </div>
+      <div class="parcel-box">📦</div>
+    </div>
+  </div>
+</section>
+
 
     <div class="notice warning">
-      Development mode: this prototype does not authenticate users or
-      send real SMS messages. Do not use real personal information.
+      Prototype mode: notifications appear on this website when you check
+      your parcel. No SMS or background notification is sent.
+      Physical locker hardware is not yet connected to this page.
     </div>
 
     <div class="grid">
       <section class="panel">
-        <h2>Find your parcel</h2>
-        <p class="muted">Enter your parcel reference to check its status.</p>
+        <h2>Track your parcel</h2>
+        <p class="muted">
+          Enter the tracking ID provided by your delivery agent.
+        </p>
 
         <form id="lookupForm">
-          <label for="parcelId">Parcel ID</label>
-          <input id="parcelId" required autocomplete="off"
-                 placeholder="Enter parcel ID">
-          <button type="submit">Find Parcel</button>
+          <label for="parcelId">Tracking ID</label>
+          <input
+            id="parcelId"
+            required
+            autocomplete="off"
+            placeholder="Enter tracking ID"
+          >
+          <button id="lookupButton" type="submit">Check Parcel</button>
         </form>
 
-        <div id="parcelResult" class="muted" aria-live="polite"></div>
+        <div
+          id="parcelResult"
+          class="notice hidden"
+          role="status"
+          aria-live="polite"
+        ></div>
       </section>
 
       <section class="panel">
         <h2>Pickup verification</h2>
         <p class="muted">
-          Request a development OTP and enter the code printed in the
-          local server terminal.
+          Request a pickup OTP for a stored parcel. During development,
+          check the backend terminal for the code if the server is configured
+          to log development OTPs.
         </p>
 
         <form id="otpForm">
-          <label for="otpParcelId">Parcel ID</label>
-          <input id="otpParcelId" required autocomplete="off"
-                 placeholder="Enter parcel ID">
+          <label for="otpParcelId">Tracking ID</label>
+          <input
+            id="otpParcelId"
+            required
+            autocomplete="off"
+            placeholder="Enter tracking ID"
+          >
 
           <button id="requestOtpButton" type="button">
-            Request Development OTP
+            Request Pickup OTP
           </button>
 
           <label for="otp">Six-digit OTP</label>
-          <input id="otp" required inputmode="numeric"
-                 pattern="[0-9]{6}" maxlength="6"
-                 placeholder="Enter six-digit OTP">
+          <input
+            id="otp"
+            required
+            inputmode="numeric"
+            pattern="[0-9]{6}"
+            maxlength="6"
+            autocomplete="one-time-code"
+            placeholder="Enter six-digit OTP"
+          >
 
-          <button type="submit">Verify OTP</button>
+          <button id="verifyOtpButton" type="submit">Verify OTP</button>
         </form>
 
-        <div id="otpResult" class="muted" aria-live="polite"></div>
+        <div
+          id="otpResult"
+          class="notice hidden"
+          role="status"
+          aria-live="polite"
+        ></div>
       </section>
     </div>
+    
+<section class="benefits">
+  <div class="benefit">
+    <span class="benefit-icon">⚡</span>
+    <div>
+      <strong>Fast &amp; Contactless</strong>
+      <p>Collect your parcels in seconds</p>
+    </div>
+  </div>
+
+  <div class="benefit">
+    <span class="benefit-icon">🛡️</span>
+    <div>
+      <strong>Secure &amp; Private</strong>
+      <p>OTP-based access for your safety</p>
+    </div>
+  </div>
+
+  <div class="benefit">
+    <span class="benefit-icon">📦</span>
+    <div>
+      <strong>24/7 Availability</strong>
+      <p>Access your parcels anytime</p>
+    </div>
+  </div>
+</section>
+
   </main>
 
   <script>
     const lookupForm = document.getElementById("lookupForm");
     const otpForm = document.getElementById("otpForm");
+    const parcelIdInput = document.getElementById("parcelId");
+    const otpParcelIdInput = document.getElementById("otpParcelId");
+    const otpInput = document.getElementById("otp");
+
     const parcelResult = document.getElementById("parcelResult");
     const otpResult = document.getElementById("otpResult");
-    const requestOtpButton = document.getElementById("requestOtpButton");
 
+    const lookupButton = document.getElementById("lookupButton");
+    const requestOtpButton = document.getElementById("requestOtpButton");
+    const verifyOtpButton = document.getElementById("verifyOtpButton");
+
+    function showMessage(element, message, type = "success") {
+      element.textContent = message;
+      element.className = "notice";
+
+      if (type === "warning" || type === "error") {
+        element.classList.add(type);
+      }
+    }
+
+    function showError(element, message) {
+      showMessage(element, message, "error");
+    }
+
+    async function readResponse(response) {
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok || data.success === false) {
+        throw new Error(data.message || "The request failed. Please try again.");
+      }
+
+      return data;
+    }
+
+    // Look up a parcel using its tracking ID.
     lookupForm.addEventListener("submit", async (event) => {
       event.preventDefault();
-      const parcelId = document.getElementById("parcelId").value.trim();
-      parcelResult.textContent = "Loading parcel...";
+
+      const parcelId = parcelIdInput.value.trim();
+
+      if (!parcelId) {
+        showError(parcelResult, "Please enter your tracking ID.");
+        return;
+      }
+
+      lookupButton.disabled = true;
+      showMessage(parcelResult, "Checking your parcel...", "warning");
 
       try {
         const response = await fetch(
           "/api/parcels/" + encodeURIComponent(parcelId)
         );
-        const data = await response.json();
 
-        if (!response.ok) throw new Error(data.message || "Lookup failed");
+        const data = await readResponse(response);
+        const parcel = data.parcel;
 
-        parcelResult.textContent =
-          "Parcel: " + data.parcelId +
-          "\nStatus: " + data.status +
-          "\nLocker: " + data.lockerId;
-        parcelResult.style.whiteSpace = "pre-line";
-        document.getElementById("otpParcelId").value = data.parcelId;
+        if (!parcel) {
+          throw new Error("Parcel details were not returned.");
+        }
+
+        const status = String(parcel.status || "").toLowerCase();
+        const lockerId = parcel.lockerId || "Not assigned";
+
+        // Keep the tracking ID synchronized with the pickup form.
+        otpParcelIdInput.value = parcel.parcelId || parcelId;
+
+        if (status === "stored") {
+          showMessage(
+            parcelResult,
+            "Your parcel is ready for collection!\n\n" +
+            "Tracking ID: " + (parcel.parcelId || parcelId) + "\n" +
+            "Locker ID: " + lockerId + "\n" +
+            "Status: Stored\n\n" +
+            "Request your pickup OTP when you are ready."
+          );
+
+          } else if (status === "pickup_authorized") {
+  showMessage(
+    parcelResult,
+    "Pickup authorized. Your OTP has been verified.\n\n" +
+    "Tracking ID: " + (parcel.parcelId || parcelId) + "\n" +
+    "Locker ID: " + lockerId + "\n" +
+    "Status: Pickup authorized\n\n" +
+    "The parcel will be marked collected after physical collection is confirmed.",
+    "warning"
+  );
+        } else if (status === "collected") {
+
+          showMessage(
+            parcelResult,
+            "This parcel has already been collected.\n\n" +
+            "Tracking ID: " + (parcel.parcelId || parcelId) + "\n" +
+            "Status: Collected",
+            "warning"
+          );
+        } else {
+          showMessage(
+            parcelResult,
+            "Your parcel is not yet ready for collection.\n\n" +
+            "Tracking ID: " + (parcel.parcelId || parcelId) + "\n" +
+            "Locker ID: " + lockerId + "\n" +
+            "Status: " + (parcel.status || "Unknown"),
+            "warning"
+          );
+        }
       } catch (error) {
-        parcelResult.textContent = error.message;
+        showError(parcelResult, error.message);
+      } finally {
+        lookupButton.disabled = false;
       }
     });
 
+    // Request a pickup OTP from the existing backend route.
     requestOtpButton.addEventListener("click", async () => {
-      const parcelId = document.getElementById("otpParcelId").value.trim();
+      const parcelId = otpParcelIdInput.value.trim();
+
       if (!parcelId) {
-        otpResult.textContent = "Enter a parcel ID first.";
+        showError(otpResult, "Enter a tracking ID first.");
         return;
       }
 
       requestOtpButton.disabled = true;
-      otpResult.textContent = "Requesting OTP...";
+      showMessage(otpResult, "Requesting pickup OTP...", "warning");
 
       try {
         const response = await fetch(
-          "/api/parcels/" + encodeURIComponent(parcelId) + "/request-otp",
+          "/api/parcels/" +
+          encodeURIComponent(parcelId) +
+          "/request-otp",
           { method: "POST" }
         );
-        const data = await response.json();
 
-        if (!response.ok) throw new Error(data.message || "OTP request failed");
+        const data = await readResponse(response);
 
-        otpResult.textContent =
-          "OTP requested. For this development prototype, check the VS Code " +
-          "terminal running the backend. The code is not sent by SMS.";
+       
+if (data.developmentOnly && data.otp) {
+  showMessage(
+    otpResult,
+    "DEVELOPMENT OTP\n\n" +
+    "Your pickup code is: " + data.otp + "\n\n" +
+    "Expires in " + data.expiresInMinutes + " minutes.\n" +
+    "Enter this code above to test verification.",
+    "warning"
+  );
+} else {
+  showMessage(
+    otpResult,
+    data.message || "OTP request completed."
+  );
+}
+
       } catch (error) {
-        otpResult.textContent = error.message;
+        showError(otpResult, error.message);
       } finally {
         requestOtpButton.disabled = false;
       }
     });
 
+    // Verify the OTP using the existing backend route.
     otpForm.addEventListener("submit", async (event) => {
       event.preventDefault();
-      const parcelId = document.getElementById("otpParcelId").value.trim();
-      const otp = document.getElementById("otp").value.trim();
 
-      otpResult.textContent = "Verifying OTP...";
+      const parcelId = otpParcelIdInput.value.trim();
+      const otp = otpInput.value.trim();
+
+      if (!parcelId) {
+        showError(otpResult, "Enter a tracking ID first.");
+        return;
+      }
+
+      if (!/^\d{6}$/.test(otp)) {
+        showError(otpResult, "Enter a valid six-digit OTP.");
+        return;
+      }
+
+      verifyOtpButton.disabled = true;
+      showMessage(otpResult, "Verifying OTP...", "warning");
 
       try {
         const response = await fetch(
-          "/api/parcels/" + encodeURIComponent(parcelId) + "/verify-otp",
+          "/api/parcels/" +
+          encodeURIComponent(parcelId) +
+          "/verify-otp",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ otp })
           }
         );
-        const data = await response.json();
 
-        if (!response.ok) throw new Error(data.message || "Verification failed");
+        const data = await readResponse(response);
 
-        otpResult.textContent =
-          "OTP verified. Pickup is not yet completed and the physical locker " +
-          "has not been unlocked.";
+        showMessage(
+          otpResult,
+          data.message ||
+          "OTP verified. This does not confirm that the physical locker has opened."
+        );
+
+        // Refresh parcel status after successful verification.
+        if (data.success !== false) {
+          parcelIdInput.value = parcelId;
+          lookupForm.requestSubmit();
+        }
       } catch (error) {
-        otpResult.textContent = error.message;
+        showError(otpResult, error.message);
+      } finally {
+        verifyOtpButton.disabled = false;
       }
     });
   </script>

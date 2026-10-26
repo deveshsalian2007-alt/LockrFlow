@@ -1,4 +1,4 @@
-```html
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,197 +6,471 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LockrFlow | Smart Parcel Lockers</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+  
 
-    body {
-      font-family: "Segoe UI", Arial, sans-serif;
-      min-height: 100vh;
-      background: #f4f7fb;
-      color: #17243a;
-    }
+<style>
+  :root {
+    --navy: #102344;
+    --navy-light: #19365b;
+    --teal: #14b8a6;
+    --teal-dark: #07877e;
+    --page: #f3f7fc;
+    --white: #ffffff;
+    --text: #172b49;
+    --muted: #64748b;
+    --border: #dfe9f2;
+    --shadow: 0 12px 32px rgba(16, 35, 68, 0.08);
+  }
 
-    header {
-      background: #101c32;
-      color: white;
-      padding: 22px 7%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-    .brand {
-      font-size: 27px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-    }
+  html {
+    scroll-behavior: smooth;
+  }
 
-    .brand span {
-      color: #26c6a3;
-    }
+  body {
+    min-height: 100vh;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background:
+      radial-gradient(ellipse at 8% 12%, #d9f8f0 0, transparent 34%),
+      radial-gradient(ellipse at 94% 42%, #e4edff 0, transparent 32%),
+      var(--page);
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+  }
 
-    header p {
-      color: #c2ccdc;
-      font-size: 14px;
-    }
+  header {
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(115deg, var(--navy), var(--navy-light));
+    color: var(--white);
+    padding: 19px 7%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 14px;
+    border-bottom: 4px solid var(--teal);
+    box-shadow: 0 7px 24px rgba(16, 35, 68, 0.12);
+  }
 
+  .brand {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -1px;
+  }
+
+  .brand span {
+    color: #5eead4;
+  }
+
+  header p {
+    color: #d2deed;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+  }
+
+  main {
+    width: 100%;
+    max-width: 1220px;
+    margin: 0 auto;
+    padding: 52px 28px 44px;
+    flex: 1;
+  }
+
+  .intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 0.9fr);
+    align-items: center;
+    gap: 36px;
+    margin-bottom: 36px;
+  }
+
+  .intro-copy {
+    min-width: 0;
+  }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #d9faf2;
+    color: #11665d;
+    padding: 9px 15px;
+    border: 1px solid #a8eee0;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.3px;
+    margin-bottom: 22px;
+  }
+
+  h1 {
+    color: var(--navy);
+    font-size: clamp(35px, 4.6vw, 54px);
+    line-height: 1.12;
+    letter-spacing: -1.8px;
+    margin-bottom: 18px;
+  }
+
+  h1 span {
+    color: #0d9b88;
+  }
+
+  .intro p {
+    max-width: 560px;
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1.8;
+  }
+
+  .hero-art {
+    position: relative;
+    min-width: 0;
+    min-height: 285px;
+    overflow: hidden;
+    border: 1px solid #d5eee9;
+    border-radius: 26px;
+    background: linear-gradient(135deg, #e0faf4, #edf4ff);
+    box-shadow: 0 12px 30px rgba(16, 35, 68, 0.06);
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 235px;
+    height: 235px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: #b8f0e5;
+    opacity: 0.75;
+  }
+
+  .parcel-illustration {
+    position: absolute;
+    inset: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 17px;
+  }
+
+  .parcel-person {
+    z-index: 1;
+    font-size: clamp(44px, 5vw, 65px);
+    filter: drop-shadow(0 5px 5px #10234412);
+  }
+
+  .locker-illustration {
+    position: relative;
+    width: 155px;
+    min-height: 200px;
+    padding: 13px;
+    flex-shrink: 0;
+    border: 1px solid #2c4a6c;
+    border-radius: 15px;
+    background: linear-gradient(145deg, #29486e, #102344);
+    box-shadow: 0 14px 26px #10234430;
+  }
+
+  .locker-brand {
+    color: white;
+    font-size: 13px;
+    font-weight: 800;
+    margin-bottom: 11px;
+  }
+
+  .locker-brand span {
+    color: #5eead4;
+  }
+
+  .locker-doors {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .locker-doors i {
+    display: block;
+    height: 35px;
+    border: 1px solid #b9ccde;
+    border-radius: 4px;
+    background: linear-gradient(135deg, #ffffff, #cbdceb);
+  }
+
+  .locker-screen {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    padding: 4px 7px;
+    color: #5df2d8;
+    background: #071a31;
+    border: 1px solid #315170;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+
+  .parcel-box {
+    position: absolute;
+    bottom: 0;
+    left: 12%;
+    font-size: 32px;
+  }
+
+  .portals {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+    align-items: stretch;
+  }
+
+  .portal {
+    position: relative;
+    overflow: hidden;
+    min-width: 0;
+    padding: 28px 25px 25px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    background: linear-gradient(145deg, #ffffff, #fcfeff);
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition:
+      transform 0.22s ease,
+      box-shadow 0.22s ease,
+      border-color 0.22s ease;
+  }
+
+  .portal::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: #647da2;
+  }
+
+  .portal.admin::before {
+    background: #6687d9;
+  }
+
+  .portal.user::before {
+    background: var(--teal);
+  }
+
+  .portal.agent::before {
+    background: #647da2;
+  }
+
+  .portal:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 19px 40px rgba(16, 35, 68, 0.13);
+    border-color: #b7dcd7;
+  }
+
+  .portal-icon {
+    width: 58px;
+    height: 58px;
+    display: grid;
+    place-items: center;
+    border-radius: 17px;
+    font-size: 29px;
+    margin-bottom: 20px;
+  }
+
+  .admin .portal-icon {
+    background: #e8eefc;
+    color: #254b91;
+  }
+
+  .user .portal-icon {
+    background: #d9faf2;
+    color: #0f766e;
+  }
+
+  .agent .portal-icon {
+    background: #e9eff7;
+    color: #34516f;
+  }
+
+  .portal h2 {
+    color: var(--navy);
+    font-size: 21px;
+    letter-spacing: -0.4px;
+    margin-bottom: 10px;
+  }
+
+  .portal p {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.8;
+    margin-bottom: 24px;
+    flex-grow: 1;
+  }
+
+  .portal a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    min-height: 46px;
+    padding: 12px 15px;
+    border-radius: 11px;
+    text-align: center;
+    text-decoration: none;
+    color: var(--white);
+    background: var(--navy);
+    border: 1px solid transparent;
+    font-weight: 700;
+    font-size: 13px;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .portal a:hover {
+    background: var(--navy-light);
+    transform: translateY(-1px);
+  }
+
+  .portal a:focus-visible {
+    outline: 3px solid #5eead4;
+    outline-offset: 3px;
+  }
+
+  .user a {
+    background: var(--teal-dark);
+  }
+
+  .user a:hover {
+    background: #086d66;
+  }
+
+  .agent a {
+    background: #34516f;
+  }
+
+  .agent a:hover {
+    background: #263f5a;
+  }
+
+ 
+.note {
+  max-width: 900px;
+  margin: 28px auto 0;
+  padding: 15px 19px;
+  background: linear-gradient(110deg, #fff8e8, #fffdf6);
+  border: 1px solid #f1dba5;
+  border-left: 4px solid #e5a72e;
+  border-radius: 13px;
+  text-align: left;
+  color: #79520b;
+  font-size: 13px;
+  line-height: 1.8;
+  box-shadow: 0 5px 16px rgba(154, 107, 11, 0.05);
+}
+
+
+  footer {
+    text-align: center;
+    padding: 22px;
+    color: #7b8798;
+    font-size: 12px;
+    border-top: 1px solid rgba(226, 232, 240, 0.8);
+  }
+
+  @media (max-width: 900px) {
     main {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 75px 24px 45px;
+      padding-top: 42px;
     }
 
     .intro {
-      text-align: center;
-      margin-bottom: 48px;
-    }
-
-    .tag {
-      display: inline-block;
-      background: #d9f8ef;
-      color: #087d68;
-      padding: 8px 14px;
-      border-radius: 30px;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      margin-bottom: 20px;
-    }
-
-    h1 {
-      font-size: clamp(32px, 5vw, 48px);
-      line-height: 1.15;
-      margin-bottom: 17px;
-    }
-
-    .intro p {
-      color: #66758b;
-      font-size: 16px;
-      line-height: 1.7;
-      max-width: 620px;
-      margin: 0 auto;
-    }
-
-    .portals {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: 1fr;
       gap: 22px;
     }
 
-    .portal {
-      background: white;
-      border: 1px solid #e3e9f1;
-      border-radius: 18px;
-      padding: 30px 25px;
-      box-shadow: 0 8px 25px rgba(24, 42, 70, 0.05);
-      display: flex;
-      flex-direction: column;
+    .hero-art {
+      min-height: 245px;
+    }
+
+    .portals {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 600px) {
+    header {
+      padding: 18px 6%;
       align-items: flex-start;
-      transition: transform 0.2s, box-shadow 0.2s;
+      flex-direction: column;
     }
 
-    .portal:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(24, 42, 70, 0.10);
+    .brand {
+      font-size: 25px;
     }
 
-    .portal-icon {
-      width: 58px;
-      height: 58px;
-      display: grid;
-      place-items: center;
-      border-radius: 15px;
-      font-size: 28px;
-      margin-bottom: 24px;
+    main {
+      padding: 34px 16px 30px;
     }
 
-    .admin .portal-icon {
-      background: #e5edff;
+    .intro {
+      margin-bottom: 26px;
     }
 
-    .user .portal-icon {
-      background: #d9f8ef;
+    h1 {
+      font-size: clamp(32px, 9vw, 42px);
+      letter-spacing: -1px;
     }
 
-    .agent .portal-icon {
-      background: #fff0d9;
+    .intro p {
+      font-size: 15px;
     }
 
-    .portal h2 {
-      font-size: 21px;
-      margin-bottom: 12px;
+    .hero-art {
+      min-height: 220px;
     }
 
-    .portal p {
-      color: #6b788d;
-      font-size: 14px;
-      line-height: 1.75;
-      margin-bottom: 25px;
-      flex-grow: 1;
+    .locker-illustration {
+      width: 135px;
+      min-height: 180px;
     }
 
-    .portal a {
-      display: block;
-      width: 100%;
-      text-align: center;
-      padding: 13px 16px;
-      border-radius: 10px;
-      text-decoration: none;
-      color: white;
-      background: #172943;
-      font-weight: 700;
-      font-size: 14px;
+    .portals {
+      grid-template-columns: 1fr;
+      gap: 17px;
     }
 
-    .user a {
-      background: #079779;
-    }
-
-    .agent a {
-      background: #b87518;
-    }
-
-    .portal a:hover {
-      filter: brightness(1.1);
+    .portal {
+      padding: 25px 22px 22px;
     }
 
     .note {
-      text-align: center;
-      margin-top: 38px;
-      color: #7b8798;
-      font-size: 12px;
-      line-height: 1.7;
+      margin-top: 22px;
+      padding: 14px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
     }
 
-    footer {
-      text-align: center;
-      padding: 22px;
-      color: #7b8798;
-      font-size: 12px;
+    *,
+    *::before,
+    *::after {
+      transition: none !important;
+      animation: none !important;
     }
+  }
+</style>
 
-    @media (max-width: 800px) {
-      main {
-        padding-top: 48px;
-      }
-
-      .portals {
-        grid-template-columns: 1fr;
-        max-width: 480px;
-        margin: auto;
-      }
-
-      .intro {
-        margin-bottom: 32px;
-      }
-    }
-  </style>
 </head>
 
 <body>
@@ -206,14 +480,42 @@
   </header>
 
   <main>
-    <section class="intro">
-      <div class="tag">SMART • SECURE • SIMPLE</div>
-      <h1>Welcome to LockrFlow</h1>
-      <p>
-        A smarter way to manage parcel deliveries and collections.
-        Choose your portal to continue.
-      </p>
-    </section>
+    
+<section class="intro">
+  <div class="intro-copy">
+    <div class="tag">SMART · SECURE · SIMPLE</div>
+
+    <h1>Welcome to <span>LockrFlow</span></h1>
+
+    <p>
+      A smarter way to manage parcel deliveries and collections.
+      Choose your portal to continue.
+    </p>
+  </div>
+
+  <div class="hero-art" aria-hidden="true">
+    <div class="hero-glow"></div>
+
+    <div class="parcel-illustration">
+      <div class="parcel-person">📦</div>
+
+      <div class="locker-illustration">
+        <div class="locker-brand">Lockr<span>Flow</span></div>
+
+        <div class="locker-doors">
+          <i></i><i></i>
+          <i></i><i></i>
+          <i></i><i></i>
+        </div>
+
+        <div class="locker-screen">▦</div>
+      </div>
+
+      <div class="parcel-box">📦</div>
+    </div>
+  </div>
+</section>
+
 
     <section class="portals">
       <article class="portal admin">
@@ -230,9 +532,10 @@
         <div class="portal-icon">♙</div>
         <h2>User Portal</h2>
         <p>
-          Look up your parcel, request a one-time password,
-          and verify your OTP before collection.
-        </p>
+  Track your parcel, check its assigned locker, and request
+  a pickup OTP when your parcel is ready for collection.
+  No SMS notifications are used.
+</p>
         <a href="/user.html">Open User Portal →</a>
       </article>
 
@@ -248,13 +551,13 @@
     </section>
 
     <p class="note">
-      Development version · Hardware integration is not yet connected.<br>
-      Portal links provide navigation only; secure role-based access
-      must be implemented separately.
-    </p>
+  Development version · Physical locker integration is in progress.<br>
+  OTPs are displayed on the website for development testing.
+  SMS notifications are not enabled.<br>
+  Admin and agent features require authorized sign-in.
+</p>
   </main>
 
   <footer>© 2026 LockrFlow · Smart Parcel Locker System</footer>
 </body>
 </html>
-```

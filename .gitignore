@@ -19,3 +19,6 @@ credentials.json
 npm-debug.log*
 .DS_Store
 Thumbs.db
+# Local backups and duplicate copies
+public-backup/
+public copy/
