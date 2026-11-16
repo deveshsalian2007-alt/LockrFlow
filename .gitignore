@@ -1,24 +1,24 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# ESP32 credentials
+**/locker_config.h
 
 # Dependencies
 node_modules/
 
-# Environment variables and secrets
-.env
-.env.*
-!.env.example
-*service-account*.json
-*firebase-adminsdk*.json
-serviceAccountKey.json
-credentials.json
+# Python
+.venv/
+__pycache__/
+*.pyc
 
-# Local keys and certificates
-*.pem
-*.key
+# Build files
+dist/
+build/
 
-# Logs and operating-system files
-npm-debug.log*
+# IDE and OS files
+.vscode/
 .DS_Store
 Thumbs.db
-# Local backups and duplicate copies
-public-backup/
-public copy/
